@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose'); 
 
 const UserSchema = new Schema({
-    userName: {
+    username: {
         type: String, 
         unique: true, 
         required: true, 
@@ -23,10 +23,10 @@ const UserSchema = new Schema({
         }
       ], 
       friends: [
-        {
-          type: Schema.Types.ObjectId, 
-          ref: "User", 
-        }, 
+        // {
+        //   type: Schema.Types.ObjectId, 
+        //   ref: "User", 
+        // }, 
       ]
     }, 
     {
@@ -37,9 +37,9 @@ const UserSchema = new Schema({
     }
 ); 
 
-UserSchema.virtual('thoughtCount').get(function() {
-  return this.thoughts.length; 
-})
+// UserSchema.virtual('thoughtCount').get(function() {
+//   return this.thoughts.length; 
+// })
 
 const User = model('User', UserSchema); 
 
