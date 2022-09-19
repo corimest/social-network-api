@@ -12,7 +12,7 @@ const thoughtController = {
             .select("-__v")
             .then((thought) => {
                 if (!thought) {
-                res.status(404).json({ message: 'No thought found with this id!' });
+                res.status(404).json({ message: '1-No thought found with this id!' });
                 return;
                 }
                 res.json(thought);
@@ -28,13 +28,13 @@ const thoughtController = {
             .then(({ _id }) => {
             return User.findOneAndUpdate(
                 { _id: req.body.userId },
-                { $push: { thoughts: _id } },
+                { $push: { thought: _id } },
                 { new: true }
             );
             })
             .then((thought) => {
                 if (!thought) {
-                res.status(404).json({ message: 'No thought found with this id!' });
+                res.status(404).json({ message: '2-No thought found with this id!' });
                 return;
             }
             res.json(thought);
@@ -46,7 +46,7 @@ const thoughtController = {
         Thought.findOneAndDelete({ _id: req.params.thoughtId })
           .then(thought => {
             if (!thought) {
-              return res.status(404).json({ message: 'No thought with this id!' });
+              return res.status(404).json({ message: '3-No thought with this id!' });
             }
             return User.findOneAndUpdate(
               { thoughts: req.params.thoughtId }, 
