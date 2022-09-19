@@ -4,7 +4,7 @@
 
 An API for a social network web app where users can share their thoughts, react to other people's thoughts, and create a friend list. It uses Express.js for routing, a MongoDB database, and the Mongoose ODM.
 
-Important Note: All commits with '{' as a message were pushed during " git rebae origin/main " after issues with divergent branch and remote
+Important Note: All commits with '{' as a message were pushed during " git rebase origin/main " after issues with divergent branch and remote
 
 ## User Story 
 AS A social media startup
