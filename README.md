@@ -13,6 +13,8 @@ SO THAT my website can handle large amounts of unstructured data
 
 ## Walkthrough Video
 
+https://drive.google.com/file/d/1ibOV0EJCSmF8Xb0FsF7dvQtJK52Q1vdm/view
+
 ## Questions
   - GitHub: [corimest](https://github.com/corimest)
   - Email: [corimest@gmail.com](mailto:user@example.com)
