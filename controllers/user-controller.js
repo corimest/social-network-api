@@ -12,14 +12,17 @@ const userController = {
         }, 
 
     // get one by id
-    getUserById({ params }, res) {
-        User.findOne({ _id: params.id })
-        .then(dbUserData => {
-            if (!dbUserData) {
+    getUserById(req, res) {
+        User.findOne({ _id: req.params.userId })
+            .populate("thoughts")
+            .populate("friends")
+            .select("-__v")
+            .then((user) => {
+            if (!user) {
             res.status(404).json({ message: 'No user found with this id!' });
             return;
             }
-            res.json(dbUserData);
+            res.json(user);
         })
         .catch(err => {
             console.log(err);
@@ -35,30 +38,32 @@ const userController = {
     },
 
     // update user by id
-    updateUser({ params, body }, res) {
-        User.findOneAndUpdate({ _id: params.id }, body, { new: true })
-        .then(dbUserData => {
-            if (!dbUserData) {
+    updateUser(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId }, 
+            { $set: req.body }, 
+            { runValidators: true, new: true })
+        .then((user) => {
+            if (!user) {
             res.status(404).json({ message: 'No user found with this id!' });
             return;
             }
-            res.json(dbUserData);
+            res.json(user);
         })
         .catch(err => res.status(400).json(err));
     },
 
     // delete a user
-    deleteUser({ params }, res) {
-        User.findOneAndDelete({ _id: params.id })
-        .then(dbUserData => {
-            if (!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id!' });
-            return;
-            }
-            res.json(dbUserData);
-        })
-        .catch(err => res.status(400).json(err));
-    }, 
+    deleteUser(req, res) {
+        User.findOneAndDelete({ _id: req.params.userId })
+        .then((user) =>
+            !user
+            ? res.status(404).json({ message: "No user found with this id!" })
+            : Thought.deleteMany({ _id: { $in: user.thoughts } })
+        )
+        .then(() => res.json({ message: "User and Thought have been deleted!" }))
+        .catch((err) => res.status(400).json(err));
+    },
 
     //add a friend
     addFriend(req, res) {

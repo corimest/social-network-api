@@ -101,11 +101,11 @@ const thoughtController = {
         { runValidators: true, new: true }
       )
         .then((thought) =>
-          !thought
-            ? res.status(404).json({ message: "No thought was found with this id!" })
-            : res.json(thought)
-        )
-        .catch((err) => res.status(500).json(err));
+        !thought
+          ? res.status(404).json({ message: "No thought was found with this id!" })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
     },
   };
 
